@@ -51,6 +51,8 @@ public class EnemyController : MonoBehaviour
 
         anim.enabled = false;
 
+        GetComponent<BoxCollider>().enabled = false;
+
         Rigidbody[] child_rb;
         child_rb = gameObject.GetComponentsInChildren<Rigidbody>();
 
@@ -58,5 +60,7 @@ public class EnemyController : MonoBehaviour
         {
             rb.isKinematic = false;
         }
+
+        Destroy(this);
     }
 }
