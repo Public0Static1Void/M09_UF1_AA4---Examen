@@ -9,7 +9,8 @@ public class GrenadeLauncher : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire2"))
         {
-            Instantiate(grenade, transform.position, transform.rotation);
+            GameObject ob = Instantiate(grenade, transform.position, transform.rotation);
+            ob.GetComponent<GrenadeController>().player = this.transform;
         }
     }
 }

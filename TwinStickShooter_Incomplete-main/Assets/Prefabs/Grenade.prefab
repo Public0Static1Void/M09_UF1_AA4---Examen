@@ -151,8 +151,9 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 247
-  launchForce: 100
+  launchForce: 10
   timer: 3
   radius: 5
   explosionForce: 100
   particles: {fileID: 460494424281584512, guid: c9af61b6b292f5a41a1be91e9def62b2, type: 3}
+  player: {fileID: 0}

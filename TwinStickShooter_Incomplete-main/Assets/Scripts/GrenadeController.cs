@@ -12,8 +12,29 @@ public class GrenadeController : MonoBehaviour
     public float radius;
     public float explosionForce;
     public GameObject particles;
+
+    public Transform player;
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
+        rb.AddForce((player.forward + player.up) * launchForce, ForceMode.Impulse);
+        StartCoroutine(GrenadeCooldown());
+    }
+    
+    IEnumerator GrenadeCooldown()
+    {
+        yield return new WaitForSeconds(timer);
+        Instantiate(particles, transform.position, transform.rotation);
 
+        Collider[] hit_colliders = Physics.OverlapSphere(transform.position, radius);
+        foreach (Collider coll in hit_colliders)
+        {
+            if (coll.gameObject.tag == "Enemy")
+            {
+                coll.gameObject.GetComponent<EnemyController>().Kill();
+            }
+        }
+
+        Destroy(this.gameObject);
     }
 }
