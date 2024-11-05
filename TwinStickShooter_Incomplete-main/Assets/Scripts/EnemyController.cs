@@ -46,6 +46,17 @@ public class EnemyController : MonoBehaviour
 
     public void Kill()
     {
+        rb.isKinematic = true;
+        rb.useGravity = false;
 
+        anim.enabled = false;
+
+        Rigidbody[] child_rb;
+        child_rb = gameObject.GetComponentsInChildren<Rigidbody>();
+
+        foreach (Rigidbody rb in child_rb)
+        {
+            rb.isKinematic = false;
+        }
     }
 }
