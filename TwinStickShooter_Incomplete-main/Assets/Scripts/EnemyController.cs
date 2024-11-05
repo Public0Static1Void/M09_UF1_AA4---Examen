@@ -32,8 +32,10 @@ public class EnemyController : MonoBehaviour
         float distance = Vector3.Distance(transform.position, player.position);
         Debug.Log(distance);
         if (distance > stoppingDistance)
+        {
             if (current_anim_speed < speed)
                 current_anim_speed += Time.deltaTime * stoppingDistance;
+        }
         else
             if (current_anim_speed > 0)
                 current_anim_speed -= Time.deltaTime * stoppingDistance;

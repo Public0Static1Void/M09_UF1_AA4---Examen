@@ -22,6 +22,6 @@ public class PlayerController : MonoBehaviour
         Vector3 mov = new Vector3(horizontal, 0, vertical) * speed;
         Vector3 vel = transform.TransformDirection(mov);
 
-        rb.velocity = new Vector3(vel.x, rb.velocity.y, vel.z);
+        rb.velocity = new Vector3(mov.x, rb.velocity.y, mov.z);
     }
 }
