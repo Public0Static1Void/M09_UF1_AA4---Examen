@@ -33,6 +33,9 @@ public class GrenadeController : MonoBehaviour
             {
                 coll.gameObject.GetComponent<EnemyController>().Kill();
             }
+
+            Rigidbody rb = coll.gameObject.GetComponent<Rigidbody>();
+            rb?.AddExplosionForce(explosionForce, transform.position, radius);
         }
 
         Destroy(this.gameObject);

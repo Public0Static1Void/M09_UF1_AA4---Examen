@@ -1333,6 +1333,12 @@ MonoBehaviour:
   rotation_speed: 2
   mirilla: {fileID: 1432227178}
   current_target: {fileID: 0}
+  spawn_zones:
+  - {fileID: 2067838242}
+  - {fileID: 461100052}
+  - {fileID: 1173291742}
+  - {fileID: 539748649}
+  enemy: {fileID: 4817856388893245081, guid: 4d48bc6b7eceb684eb56268606e53242, type: 3}
 --- !u!1 &1173291741
 GameObject:
   m_ObjectHideFlags: 0

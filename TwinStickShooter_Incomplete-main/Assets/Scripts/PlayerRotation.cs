@@ -14,7 +14,14 @@ public class PlayerRotation : MonoBehaviour
 
     [SerializeField] private EnemyController current_target;
 
+    private float enemies_per_round = 0;
+
     private int count = 0;
+
+    public List<Transform> spawn_zones;
+
+    public GameObject enemy;
+
     void Awake()
     {
         if (instance == null)
@@ -27,9 +34,24 @@ public class PlayerRotation : MonoBehaviour
 
     private void Update()
     {
+        if (count == 0)
+        {
+            StartRound();
+        }
         RefreshTargetLocation();
     }
 
+    void StartRound()
+    {
+        for (int i = 0; i < enemies_per_round; i++)
+        {
+            int rand = Random.Range(0, spawn_zones.Count);
+            GameObject ob = Instantiate(enemy, spawn_zones[i].transform.position, Quaternion.identity);
+            AddEnemy(ob.GetComponent<EnemyController>());
+        }
+
+        enemies_per_round *= 1.2f;
+    }
     private void RefreshTargetLocation()
     {
         if (count > 0)
