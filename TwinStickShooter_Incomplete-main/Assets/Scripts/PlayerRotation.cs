@@ -27,6 +27,11 @@ public class PlayerRotation : MonoBehaviour
 
     private void Update()
     {
+        RefreshTargetLocation();
+    }
+
+    private void RefreshTargetLocation()
+    {
         if (count > 0)
         {
             float distance = Vector3.Distance(enemyControllers[0].transform.position, transform.position);
@@ -44,16 +49,22 @@ public class PlayerRotation : MonoBehaviour
             Vector3 dir = current_target.transform.position - transform.position;
             Quaternion rot = Quaternion.LookRotation(dir, transform.up);
             transform.localRotation = Quaternion.Slerp(transform.rotation, rot, rotation_speed * Time.deltaTime);
-            Debug.Log("Slerp");
         }
         else
             mirilla.position = new Vector3(transform.position.x, 0, transform.position.z);
-
     }
 
     public void AddEnemy(EnemyController controller)
     {
         enemyControllers.Add(controller);
         count++;
+    }
+
+    public void RemoveEnemy(EnemyController controller)
+    {
+        enemyControllers.Remove(controller);
+        if (count > 0)
+            count--;
+        RefreshTargetLocation();
     }
 }

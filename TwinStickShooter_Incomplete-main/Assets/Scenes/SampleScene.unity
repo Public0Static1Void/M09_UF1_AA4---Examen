@@ -3221,3 +3221,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 247
   knockbackForce: 25
+  range: 10

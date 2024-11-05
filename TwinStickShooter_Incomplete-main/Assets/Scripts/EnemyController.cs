@@ -16,12 +16,17 @@ public class EnemyController : MonoBehaviour
     private Rigidbody rb;
 
     [SerializeField] private Transform player;
+
+    private List<Rigidbody> rb_list;
     private void Start()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
 
         PlayerRotation.instance.AddEnemy(this);
+
+        rb_list = new List<Rigidbody>();
+        CollectRB(transform);
     }
     private void Update()
     {
@@ -30,7 +35,6 @@ public class EnemyController : MonoBehaviour
         transform.localRotation = Quaternion.Slerp(transform.localRotation, rot, speedRotation * Time.deltaTime);
 
         float distance = Vector3.Distance(transform.position, player.position);
-        Debug.Log(distance);
         if (distance > stoppingDistance)
         {
             if (current_anim_speed < speed)
@@ -46,21 +50,35 @@ public class EnemyController : MonoBehaviour
 
     public void Kill()
     {
-        rb.isKinematic = true;
-        rb.useGravity = false;
-
+        PlayerRotation.instance.RemoveEnemy(this);
         anim.enabled = false;
 
-        GetComponent<BoxCollider>().enabled = false;
+        GetComponent<CapsuleCollider>().enabled = false;
 
         Rigidbody[] child_rb;
         child_rb = gameObject.GetComponentsInChildren<Rigidbody>();
-
-        foreach (Rigidbody rb in child_rb)
+        Debug.Log("Ignorada");
+        foreach (Rigidbody rb in rb_list)
         {
             rb.isKinematic = false;
         }
 
+        rb.isKinematic = true;
+        rb.useGravity = false;
+
         Destroy(this);
+    }
+
+    void CollectRB(Transform tr)
+    {
+        for (int i = 0; i < tr.childCount; i++)
+        {
+            Transform child = tr.GetChild(i);
+            Rigidbody rb = child.GetComponent<Rigidbody>();
+            if (rb != null)
+                rb_list.Add(rb);
+            if (child.childCount > 0)
+                CollectRB(child);
+        }
     }
 }

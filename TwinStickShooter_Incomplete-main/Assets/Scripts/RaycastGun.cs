@@ -8,6 +8,9 @@ public class RaycastGun : MonoBehaviour
     public float lineFadeSpeed;
     public LayerMask mask;
     public float knockbackForce = 10;
+
+    [SerializeField] private float range;
+
     void Update()
     {
         line.startColor = new Color(line.startColor.r, line.startColor.g, line.startColor.b, line.startColor.a - Time.deltaTime * lineFadeSpeed);
@@ -19,7 +22,15 @@ public class RaycastGun : MonoBehaviour
             line.endColor = new Color(line.endColor.r, line.endColor.g, line.endColor.b, 1);
 
             line.SetPosition(0, transform.position);
-            line.SetPosition(1, transform.position + transform.forward * 1000);
+            line.SetPosition(1, transform.position + transform.forward * range);
+
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward, out hit, range, mask))
+            {
+                EnemyController ec = hit.transform.gameObject.GetComponent<EnemyController>();
+                ec?.Kill();
+                Debug.Log("Enemy killed");
+            }
         }
     }
 }
