@@ -20,6 +20,8 @@ public class EnemyController : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+
+        PlayerRotation.instance.AddEnemy(this);
     }
     private void Update()
     {
